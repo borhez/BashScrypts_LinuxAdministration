@@ -22,20 +22,26 @@
    return 0;
   }
 
-  check_nbr_dirs() {
+  check_nbr_dirs_and_files() {
+   if [[ $n_dirs == 0 || $n_files == 0 ]]
+       then echo "The number of files or directories must be > 0"
+          exit 1
+   fi
+
    is_nbr $n_dirs
    if [ $? == 100 ]
       then echo "Wrong directories-number!" ; exit 1
-   fi  
-   if [ $n_dirs == 0 ]
-  	then echo "Directories-number must be > 0"
-	exit 1
+   fi
+
+   is_nbr $n_files
+   if [ $? == 100 ]
+      then echo "Wrong files-number!" ; exit 1
    fi
   }
 
   check_args() {
    check_number_of_args $n_inParams
    check_absolute_way
-   check_nbr_dirs
+   check_nbr_dirs_and_files
 }
 
