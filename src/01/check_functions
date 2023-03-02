@@ -1,7 +1,6 @@
 #!/usr/bin/bash
 
   check_number_of_args() {
-	  echo $must_n $n_inParams $abs_way
   if [ $must_n != $n_inParams ]
 	then echo -e "Error!\nMust be $must_n parameters"
  	exit 1
@@ -9,7 +8,10 @@
 }
 
   check_absolute_way() {
-  echo absolut way=$abs_way
+  if [ ! -d $abs_way ]
+	  then echo "Wrong absolute way!"
+	  exit 1
+  fi
 }
 
   check_args() {
