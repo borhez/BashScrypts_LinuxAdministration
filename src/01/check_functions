@@ -1,13 +1,18 @@
 #!/usr/bin/bash
 
-function check_number_of_args() {
+  check_number_of_args() {
   if [ $must_n != $n_inParams ]
 	then echo -e "Error!\nMust be $must_n parameters"
  	exit 1
   fi
 }
 
-function check_args() {
+  check_absolute_way() {
+  echo absolut way
+}
+
+  check_args() {
   check_number_of_args $n_inParams
+  check_absolute_way
 }
 
