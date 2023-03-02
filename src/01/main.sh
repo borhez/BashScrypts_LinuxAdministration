@@ -4,5 +4,6 @@
 
 n_inParams=$#
 must_n=6
-check_args $n_inParams must_n
+abs_way=$1
+check_args
 echo end!
