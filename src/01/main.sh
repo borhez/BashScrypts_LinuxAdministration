@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
 source ./check_functions
+source ./creating
 
 n_inParams=$#
 must_n=6
@@ -16,14 +17,19 @@ check_args
     #"letters_f_name" - list of letters for file-extensions
     #"l_letters_f_ext" -length of letters for extensions
     #"l_letters_f_name" - length for filename
-echo $letters_f_name
-echo $l_letters_f_name
+
 	#Извлечь символ из строки:
 	#${string:position:length}
 	#Where this extracts $length substring from $string at $position
-fname2=${letters_f_name:2:$((l_letters_f_name - 4))}
-ext1=${letters_f_ext:1:$((l_letters_f_ext - 1))}
 
-echo $fname2
-echo $ext1
+for ((i=1; i <= $n_dirs; i++))
+do
+	echo $i
+	create_newfolder
+	for ((n=1; n <= $n_files; n++))
+	do
+		check_1Gb_freespace
+		create_newfile
+	done
+done
 echo end!

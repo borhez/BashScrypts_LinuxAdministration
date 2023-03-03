@@ -95,3 +95,13 @@ check_letters() {
    check_size_param
 }
 
+check_1Gb_freespace() 
+{
+	freespace=$( df | grep /dev/sda3 | awk '{print($4)}' )
+	#gigabyte=1048576 kb
+	#for testing: let needed=$freespace+1
+	let needed=1048576+$file_size
+	if [ $freespace -lt $needed ]
+		then echo "when creating the next file, there will be less than 1 GB of free space."; exit 1
+	fi
+}
