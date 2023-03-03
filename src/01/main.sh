@@ -14,11 +14,16 @@ check_args
 #in function "check_args" are creating variables:
     #"letters_f_ext" - list of letters for file_names
     #"letters_f_name" - list of letters for file-extensions
-echo "in main()"
-echo $letters_f_ext
+    #"l_letters_f_ext" -length of letters for extensions
+    #"l_letters_f_name" - length for filename
 echo $letters_f_name
-echo $file_size
-echo $n_dirs
+echo $l_letters_f_name
+	#Извлечь символ из строки:
+	#${string:position:length}
+	#Where this extracts $length substring from $string at $position
+fname2=${letters_f_name:2:$((l_letters_f_name - 4))}
+ext1=${letters_f_ext:1:$((l_letters_f_ext - 1))}
 
-echo $(expr $n_dirs + 5)
+echo $fname2
+echo $ext1
 echo end!

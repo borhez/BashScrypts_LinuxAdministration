@@ -50,24 +50,28 @@ check_letters() {
       then echo "Wrong letters for files" ; exit 1
   fi
 
-  local size_d_letters=${#d_letters}
+  l_letters_d=${#d_letters}
 
-  #method1: split f_letters by "."  Find letters for file-names:
-  IFS='.' read -ra letters_f_name <<< "$f_letters"
-  #echo $letters_f_name
-  local size_f_name=${#letters_f_name}
+ #split f_letters by "."  Find letters for file-names:
+ # IFS='.' read -ra letters_f_name <<< "$f_letters"
+ 	#echo $letters_f_name
+ # local size_f_name=${#letters_f_name}
 
-  #method2: split f_letters by "." Find letters for file-extensions
   local delimitter="."
+  letters_f_name=${f_letters%$delimitter*}
+  	#echo $letters_f_name
+  l_letters_f_name=${#letters_f_name}
+  
+#split f_letters by "." Find letters for file-extensions
   letters_f_ext=${f_letters##*$delimitter}
-  #echo $letters_f_ext
-  local size_f_ext=${#letters_f_ext}
+  	#echo $letters_f_ext
+  l_letters_f_ext=${#letters_f_ext}
 
-  if [[ $size_d_letters -gt 7 || $size_f_name -gt 7 ]]
+  if [[ $l_letters_d -gt 7 || $l_letters_f_name -gt 7 ]]
      then echo "List of letters must be not great than 7"; exit 1
   fi
 
-  if [ $size_f_ext -gt 3 ]
+  if [ $l_letters_f_ext -gt 3 ]
      then echo "List of letters for extension must be not great than 3"
      exit 1
   fi
