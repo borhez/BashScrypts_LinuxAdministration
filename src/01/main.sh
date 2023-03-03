@@ -12,8 +12,11 @@ n_files=$4
 f_letters=$5
 file_size=$6
 add_date=$(date +%d%m%y)
+dateLog=$(date)
 
 check_args
+echo $abs_way
+
 #in function "check_args" are creating variables:
     #"letters_f_ext" - list of letters for file_names
     #"letters_f_name" - list of letters for file-extensions
@@ -23,16 +26,14 @@ check_args
 	#Извлечь символ из строки:
 	#${string:position:length}
 	#Where this extracts $length substring from $string at $position
-
+touch log.txt
 for ((d=1; d <= $n_dirs; d++))
 do
 	create_newfolder
-	update_log
 	for ((f=1; f <= $n_files; f++))
 	do
 		check_1Gb_freespace
 		create_newfile
-		update_log
 	done
 done
 echo "end!"

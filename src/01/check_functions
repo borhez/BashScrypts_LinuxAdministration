@@ -7,11 +7,31 @@
   fi
 }
 
+ remove_slash_in_the_end()
+ {
+   local len=${#abs_way}
+   local last_elem=${abs_way:$len-1:1}
+   local suffix="/"
+  
+   while true
+   do
+	   if [ "$last_elem" != "$suffix" ]
+	   then 
+	   	break
+	   fi
+
+	   abs_way=${abs_way%"$suffix"}
+	   len=${#abs_way}
+	   last_elem=${abs_way:$len-1:1}  
+   done
+ }
+
   check_absolute_way() {
   if [ ! -d $abs_way ]
 	  then echo "Wrong absolute way!"
 	  exit 1
   fi
+  remove_slash_in_the_end
 }
 
   is_nbr() {

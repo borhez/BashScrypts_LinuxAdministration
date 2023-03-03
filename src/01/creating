@@ -42,6 +42,8 @@ create_newfile()
   if [[ $? -ne 0 ]]
   	then echo "Error when creating file"; erxit 1
   fi
+
+  echo  "${abs_way}/${new_dName}/${newFile}; ${dateLog}; ${file_size}K" >> ./log.txt
 }
 
 create_newfolder()
@@ -56,9 +58,12 @@ create_newfolder()
 	if [ $? -ne 0 ]
 	then echo "Error when creating folder" ; exit 1
 	fi
+
+	echo "${abs_way}/${new_dName}; ${dateLog}" >> ./log.txt
 }
 
 update_log()
 {
    echo updateLog
+   
 }
