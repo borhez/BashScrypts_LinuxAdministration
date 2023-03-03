@@ -24,8 +24,8 @@ check_args
 	#${string:position:length}
 	#Where this extracts $length substring from $string at $position
 
-	for ((d=1; d <= $n_dirs; d++))
-	do
+for ((d=1; d <= $n_dirs; d++))
+do
 	create_newfolder
 	update_log
 	for ((f=1; f <= $n_files; f++))

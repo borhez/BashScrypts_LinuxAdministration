@@ -37,6 +37,11 @@ create_newfile()
   new_fName=$(generate $letters_f_name)
   newfExt=$(generate $letters_f_ext)
   newFile=${new_fName}_${add_date}.${newfExt}
+  
+  fallocate -l ${file_size}K ${abs_way}/${new_dName}/${newFile}
+  if [[ $? -ne 0 ]]
+  	then echo "Error when creating file"; erxit 1
+  fi
 }
 
 create_newfolder()
@@ -45,7 +50,7 @@ create_newfolder()
 	new_dName=${new_dName}_${add_date}
 	
 	#cd $abs_way
-	sudo mkdir -p ${abs_way}/${new_dName}
+	mkdir -p ${abs_way}/${new_dName}
 	#cd -
 	
 	if [ $? -ne 0 ]
