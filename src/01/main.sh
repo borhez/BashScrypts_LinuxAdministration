@@ -11,6 +11,7 @@ d_letters=$3
 n_files=$4
 f_letters=$5
 file_size=$6
+
 check_args
 #in function "check_args" are creating variables:
     #"letters_f_ext" - list of letters for file_names
@@ -22,14 +23,16 @@ check_args
 	#${string:position:length}
 	#Where this extracts $length substring from $string at $position
 
-for ((i=1; i <= $n_dirs; i++))
-do
-	echo $i
+	for ((d=1; d <= $n_dirs; d++))
+	do
+	echo $d
 	create_newfolder
-	for ((n=1; n <= $n_files; n++))
+	update_log
+	for ((f=1; f <= $n_files; f++))
 	do
 		check_1Gb_freespace
 		create_newfile
+		update_log
 	done
 done
-echo end!
+echo "end!"

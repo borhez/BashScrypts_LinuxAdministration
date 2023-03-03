@@ -1,24 +1,52 @@
-generate_name()
+generate()
 {
-  if [ $# -eq 2 ]
-  	then str=file.ads
-  	echo $str
-  fi
+  local letters=$1
+  local l_arr_letters=${#letters}
+  local ret
+  local times
+  local new_char
+  local in_str=$1
+  local len_ret
 
-  if [ $# -eq 1 ]
-	then str=folder.ser
-	echo $str
-  fi
+  for ((g=0; g < l_arr_letters; g++))
+  do
+  	let "how_many=1+$RANDOM % 3"
+	for ((times=0; times < how_many; times++))
+	do
+		new_char=${in_str:$g:1}
+		ret=$ret$new_char
+	done
+  done
+
+  len_ret=${#ret}
+  for (( ; len_ret < 4; ))
+  do
+	let "how_many=1+$RANDOM % 3"
+	for ((times=0; times < how_many; times++))
+	do
+	  	new_char=${in_str:$g-1:1}
+		ret=$ret$new_char
+	done
+	len_ret=${#ret}
+  done
+  echo $ret
 }
 
 create_newfile()
 {
-  new_fname=$(generate_name $letters_f_name $letters_f_ext)
-  echo "in crNewFile() newname=$new_fname"
+  new_fName=$(generate $letters_f_name)
+  new_fExt=$(generate $letters_f_ext)
+  newFile=$new_fName.$new_fExt
+  echo "in crNewFile() newname=$newFile"
 }
 
 create_newfolder()
 {
-	new_dname=$(generate_name $d_letters)
-	echo "in crNewFolder(() newname=$new_dname"
+	new_dName=$(generate $d_letters)
+	echo "in crNewFolder() newname=$new_dName"
+}
+
+update_log()
+{
+   echo updateLog
 }
