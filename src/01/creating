@@ -35,15 +35,22 @@ generate()
 create_newfile()
 {
   new_fName=$(generate $letters_f_name)
-  new_fExt=$(generate $letters_f_ext)
-  newFile=$new_fName.$new_fExt
-  echo "in crNewFile() newname=$newFile"
+  newfExt=$(generate $letters_f_ext)
+  newFile=${new_fName}_${add_date}.${newfExt}
 }
 
 create_newfolder()
 {
 	new_dName=$(generate $d_letters)
-	echo "in crNewFolder() newname=$new_dName"
+	new_dName=${new_dName}_${add_date}
+	
+	#cd $abs_way
+	sudo mkdir -p ${abs_way}/${new_dName}
+	#cd -
+	
+	if [ $? -ne 0 ]
+	then echo "Error when creating folder" ; exit 1
+	fi
 }
 
 update_log()

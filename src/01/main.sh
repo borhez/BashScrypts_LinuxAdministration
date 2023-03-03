@@ -11,6 +11,7 @@ d_letters=$3
 n_files=$4
 f_letters=$5
 file_size=$6
+add_date=$(date +%d%m%y)
 
 check_args
 #in function "check_args" are creating variables:
@@ -25,7 +26,6 @@ check_args
 
 	for ((d=1; d <= $n_dirs; d++))
 	do
-	echo $d
 	create_newfolder
 	update_log
 	for ((f=1; f <= $n_files; f++))
