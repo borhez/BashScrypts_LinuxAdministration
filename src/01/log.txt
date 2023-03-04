@@ -1,8 +1,24 @@
-/home/sshield1///testing/dddirecccto_040323; Sat 04 Mar 2023 01:02:30 AM MSK
-/home/sshield1///testing/dddirecccto_040323/fiiilleesss_040323.eeexxxt; Sat 04 Mar 2023 01:02:30 AM MSK; 100K
-/home/sshield1///testing/dddirecccto_040323/fffiiilleeesss_040323.eextt; Sat 04 Mar 2023 01:02:30 AM MSK; 100K
-/home/sshield1///testing/dddirecccto_040323/fiillleess_040323.eexxxttt; Sat 04 Mar 2023 01:02:30 AM MSK; 100K
-/home/sshield1///testing/ddiirrreecttooo_040323; Sat 04 Mar 2023 01:02:30 AM MSK
-/home/sshield1///testing/ddiirrreecttooo_040323/fffiillleeesss_040323.exttt; Sat 04 Mar 2023 01:02:30 AM MSK; 100K
-/home/sshield1///testing/ddiirrreecttooo_040323/fiiilleees_040323.extttt; Sat 04 Mar 2023 01:02:30 AM MSK; 100K
-/home/sshield1///testing/ddiirrreecttooo_040323/fiillleess_040323.eeexxxttt; Sat 04 Mar 2023 01:02:30 AM MSK; 100K
+/home/sshield1/testing/ddiirrrecccto_040323; Sat 04 Mar 2023 03:26:23 AM MSK
+/home/sshield1/testing/ddiirrrecccto_040323/ffilleeess_040323.exxttt; Sat 04 Mar 2023 03:26:23 AM MSK; 100K
+/home/sshield1/testing/ddiirrrecccto_040323/fffiilllees_040323.eexxt; Sat 04 Mar 2023 03:26:23 AM MSK; 100K
+/home/sshield1/testing/ddiirrrecccto_040323/fiiillleeess_040323.exxttt; Sat 04 Mar 2023 03:26:23 AM MSK; 100K
+/home/sshield1/testing/dddiirrrectto_040323; Sat 04 Mar 2023 03:26:23 AM MSK
+/home/sshield1/testing/dddiirrrectto_040323/fiillleess_040323.exxtt; Sat 04 Mar 2023 03:26:23 AM MSK; 100K
+/home/sshield1/testing/dddiirrrectto_040323/ffillleess_040323.eexttt; Sat 04 Mar 2023 03:26:23 AM MSK; 100K
+/home/sshield1/testing/dddiirrrectto_040323/ffillleeess_040323.exxttt; Sat 04 Mar 2023 03:26:23 AM MSK; 100K
+/home/sshield1/testing/ddirreccto_040323; Sat 04 Mar 2023 03:28:10 AM MSK
+/home/sshield1/testing/ddirreccto_040323/fffiillleess_040323.exxtt; Sat 04 Mar 2023 03:28:10 AM MSK; 100K
+/home/sshield1/testing/ddirreccto_040323/fiillleesss_040323.eeexxxt; Sat 04 Mar 2023 03:28:10 AM MSK; 100K
+/home/sshield1/testing/ddirreccto_040323/ffiillleeess_040323.exxtt; Sat 04 Mar 2023 03:28:10 AM MSK; 100K
+/home/sshield1/testing/dddiirreeccctooo_040323; Sat 04 Mar 2023 03:28:10 AM MSK
+/home/sshield1/testing/dddiirreeccctooo_040323/fiilees_040323.exxttt; Sat 04 Mar 2023 03:28:10 AM MSK; 100K
+/home/sshield1/testing/dddiirreeccctooo_040323/ffiillleesss_040323.eext; Sat 04 Mar 2023 03:28:10 AM MSK; 100K
+/home/sshield1/testing/dddiirreeccctooo_040323/fiiillleeess_040323.eexxttt; Sat 04 Mar 2023 03:28:10 AM MSK; 100K
+/home/sshield1/testing/diiirreeectttooo_040323; Sat 04 Mar 2023 03:28:21 AM MSK
+/home/sshield1/testing/diiirreeectttooo_040323/fiiilees_040323.extt; Sat 04 Mar 2023 03:28:21 AM MSK; 55K
+/home/sshield1/testing/diiirreeectttooo_040323/fffiiillleeess_040323.eext; Sat 04 Mar 2023 03:28:21 AM MSK; 55K
+/home/sshield1/testing/diiirreeectttooo_040323/filleesss_040323.eexxt; Sat 04 Mar 2023 03:28:21 AM MSK; 55K
+/home/sshield1/testing/dddirecctttooo_040323; Sat 04 Mar 2023 03:28:21 AM MSK
+/home/sshield1/testing/dddirecctttooo_040323/ffiiillees_040323.eext; Sat 04 Mar 2023 03:28:21 AM MSK; 55K
+/home/sshield1/testing/dddirecctttooo_040323/ffillleess_040323.eexxxtt; Sat 04 Mar 2023 03:28:21 AM MSK; 55K
+/home/sshield1/testing/dddirecctttooo_040323/ffileesss_040323.exxxtt; Sat 04 Mar 2023 03:28:21 AM MSK; 55K

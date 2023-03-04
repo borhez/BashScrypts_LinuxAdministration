@@ -7,23 +7,37 @@
   fi
 }
 
- remove_slash_in_the_end()
+ remove_doubleslash()
  {
-   local len=${#abs_way}
-   local last_elem=${abs_way:$len-1:1}
-   local suffix="/"
+	# удалит только с дконца. в середине останутся
+ 	#local len=${#abs_way}
+ 	# local last_elem=${abs_way:$len-1:1}
+ 	# local suffix="/"
   
-   while true
-   do
-	   if [ "$last_elem" != "$suffix" ]
-	   then 
-	   	break
-	   fi
+	#while true
+	#do
+	#	   if [ "$last_elem" != "$suffix" ]
+	#	   then 
+	#	   	break
+	#	   fi
+	#
+	#	   abs_way=${abs_way%"$suffix"}
+	#	   len=${#abs_way}
+	#	   last_elem=${abs_way:$len-1:1}  
+	#done
 
-	   abs_way=${abs_way%"$suffix"}
-	   len=${#abs_way}
-	   last_elem=${abs_way:$len-1:1}  
-   done
+    
+
+ #--------this method removes all doubleslashes------
+    local substr="//"
+    while true
+    do
+	if [[ $abs_way == *$substr* ]] ; then
+  		abs_way=$(echo "$abs_way"|sed -e "s@$substr@@")
+	#Если подстрока найдена, то она удаляется. Иначе break
+	else break
+   	fi
+    done
  }
 
   check_absolute_way() {
@@ -31,7 +45,7 @@
 	  then echo "Wrong absolute way!"
 	  exit 1
   fi
-  remove_slash_in_the_end
+  remove_doubleslash
 }
 
   is_nbr() {
@@ -103,9 +117,13 @@ check_letters() {
     file_size=${file_size%"$suffix"}
     re='^[0-9]+$'
     if ! [[ $file_size =~ $re ]]
-        then echo "Wrong size of files"; exit 1
-    fi  
- }
+        then echo "Wrong format for size of files"; exit 1
+    fi
+
+    if [[ $file_size -gt 100 ]] ; then
+	echo "Wrong size. Must be <= 100kb"
+    fi	
+}
 
   check_args() {
    check_number_of_args

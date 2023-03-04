@@ -15,7 +15,6 @@ add_date=$(date +%d%m%y)
 dateLog=$(date)
 
 check_args
-echo $abs_way
 
 #in function "check_args" are creating variables:
     #"letters_f_ext" - list of letters for file_names
@@ -36,4 +35,3 @@ do
 		create_newfile
 	done
 done
-echo "end!"
