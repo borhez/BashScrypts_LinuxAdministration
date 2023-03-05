@@ -10,7 +10,7 @@ generate()
 
   for ((g=0; g < l_arr_letters; g++))
   do
-  	let "how_many=1+$RANDOM % 3"
+  	let "how_many=1+$RANDOM % 21"
 	for ((times=0; times < how_many; times++))
 	do
 		new_char=${in_str:$g:1}
@@ -35,35 +35,91 @@ generate()
 create_newfile()
 {
   new_fName=$(generate $letters_f_name)
+  local tmp_fName=$new_fName
   newfExt=$(generate $letters_f_ext)
   newFile=${new_fName}_${add_date}.${newfExt}
-  
-  fallocate -l ${file_size}K ${abs_way}/${new_dName}/${newFile}
-  if [[ $? -ne 0 ]]
-  	then echo "Error when creating file"; erxit 1
+  full_fName=$(echo "${abs_way}/${new_dName}/${newFile}")
+ 
+  while true
+  do
+        if [[ ! -f ${full_fName} ]]; then
+          break 1
+        fi
+      local len=${#full_fName}
+      local lastSymbol=${full_fName:${len}-1:1}
+      full_fName=${full_fName}${lastSymbol}
+  done
+ 
+  fallocate -l ${file_size}K ${full_fName} 2>/dev/null
+  if [[ $? -ne 0 ]] ; then
+    sudo fallocate -l ${file_size}K ${full_fName}
+      if [[ $? -ne 0 ]]
+  	then echo "Error when creating file"; exit 1
+      fi
   fi
 
-  echo  "${abs_way}/${new_dName}/${newFile}; ${dateLog}; ${file_size}K" >> ./log.txt
+  echo  "${full_fName}; ${dateLog}; ${file_size}K" >> $logfile
+  if [ $? -ne 0 ] ; then
+     sudo echo "${full_fName}; ${dateLog}; ${file_size}K" >> $logfile 
+     if [ $? -ne 0 ] ; then
+       echo "Error when updating logfile" ; exit 1
+     fi
+  fi
+
 }
 
 create_newfolder()
 {
 	new_dName=$(generate $d_letters)
+	local tmp_dName=$(echo ${new_dName})
 	new_dName=${new_dName}_${add_date}
+        full_dName=$(echo "${abs_way}/${new_dName}")	
 	
-	#cd $abs_way
-	mkdir -p ${abs_way}/${new_dName}
-	#cd -
+	while true
+	do
+	  if [[ ! -d ${full_dName} ]]; then
+	    break 1
+	  fi
 	
-	if [ $? -ne 0 ]
-	then echo "Error when creating folder" ; exit 1
+	  local len=${#tmp_dName}
+  echo "tmp=$tmp_dName"
+	  local lastElem=${tmp_dName:$len-1:1}
+	  local firstElem=${tmp_dName:0:1}
+	  local let "random=$RANDOM % 2"
+	  if [[ $random -eq 0 ]]; then
+	      new_dName=${firstElem}${tmp_dName}
+	  else
+	      new_dName=${tmp_dName}${lastElem}
+	  fi
+	 # new_dName=${firstElem}${tmp_dName}${lastElem}
+	  tmp_dName=${new_dName}; echo "tmp=${tmp_dName}"
+	  new_dName=${new_dName}_${add_date}
+	  full_dName=$(echo "${abs_way}/${new_dName}")
+echo "lastElem=$lastElem"
+	done
+
+	mkdir -p ${full_dName} 2>/dev/null
+	#Если такая директория существует, то выдается сообщение о
+	#создании. Прерывается процесс. А с флагом "-p"
+	#не останавливается процесс, но и папка не создаётся.
+	#Выше в цикле создается уникальное имя для папки. 
+	#Поэтому флаг -p просто для знания такой опции.
+	#вывод ошибок перенаправляю в /dev/null, чтобы не показывались
+	#сообщения о запрете доступа. Т.к. это из-за sudo. Sudo делаю дальше.
+
+	if [ $? -ne 0 ] ; then
+	  sudo mkdir -p ${full_dName}
+	  if [ $? -ne 0 ] ; then
+	    echo "Error when creating folder" ; exit 1
+	  fi
 	fi
 
-	echo "${abs_way}/${new_dName}; ${dateLog}" >> ./log.txt
+	echo "${full_dName}; ${dateLog}" >> $logfile
+	if [ $? -ne 0 ] ; then
+	  sudo echo "${full_dName}; ${dateLog}" >> $logfile 
+	  if [ $? -ne 0 ] ; then
+	    echo "Error when updating logfile" ; exit 1
+	  fi
+	fi
 }
 
-update_log()
-{
-   echo updateLog
-   
-}

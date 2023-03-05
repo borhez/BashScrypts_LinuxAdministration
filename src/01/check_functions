@@ -3,41 +3,41 @@
   check_number_of_args() {
   if [ "$must_n" -ne "$n_inParams" ]
 	then echo -e "Error!\nMust be $must_n parameters"
+	     echo -e "abs_way; n_dirs; d_letters; n_files; f_letters(7).ext(3); file_size(<=100kb)"
  	exit 1
   fi
 }
 
- remove_doubleslash()
+ remove_slash_in_the_end()
  {
 	# удалит только с дконца. в середине останутся
- 	#local len=${#abs_way}
- 	# local last_elem=${abs_way:$len-1:1}
- 	# local suffix="/"
+ 	local len=${#abs_way}
+ 	 local last_elem=${abs_way:$len-1:1}
+ 	 local suffix="/"
   
-	#while true
-	#do
-	#	   if [ "$last_elem" != "$suffix" ]
-	#	   then 
-	#	   	break
-	#	   fi
-	#
-	#	   abs_way=${abs_way%"$suffix"}
-	#	   len=${#abs_way}
-	#	   last_elem=${abs_way:$len-1:1}  
-	#done
+	while true
+	do
+		   if [ "$last_elem" != "$suffix" ]
+		   then 
+		   	break
+		   fi
+	
+		   abs_way=${abs_way%"$suffix"}
+		   len=${#abs_way}
+		   last_elem=${abs_way:$len-1:1}  
+	done  
 
-    
-
- #--------this method removes all doubleslashes------
-    local substr="//"
-    while true
-    do
-	if [[ $abs_way == *$substr* ]] ; then
-  		abs_way=$(echo "$abs_way"|sed -e "s@$substr@@")
-	#Если подстрока найдена, то она удаляется. Иначе break
-	else break
-   	fi
-    done
+#--------this method removes all doubleslashes--BUT WRONG!!!
+#   если "~/src//01/testfolder" then abs_way="~/src01/testfolder;
+#   local substr="//"
+#  while true
+#   do
+#	if [[ $abs_way == *$substr* ]] ; then
+# 		abs_way=$(echo "$abs_way"|sed -e "s@$substr@@")
+#	#Если подстрока найдена, то она удаляется. Иначе break
+#	else break
+#  	fi
+ #  done
  }
 
   check_absolute_way() {
@@ -45,7 +45,7 @@
 	  then echo "Wrong absolute way!"
 	  exit 1
   fi
-  remove_doubleslash
+  remove_slash_in_the_end
 }
 
   is_nbr() {
@@ -121,7 +121,7 @@ check_letters() {
     fi
 
     if [[ $file_size -gt 100 ]] ; then
-	echo "Wrong size. Must be <= 100kb"
+	echo "Wrong size. Must be <= 100kb"; exit 1
     fi	
 }
 
