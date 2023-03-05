@@ -43,7 +43,9 @@ create_newfile()
   while true
   do
       if [[ ${len_newFile} -gt 255 ]]; then
-        echo "File_length_is_gt_255_characters"; return
+	full_fName=$(echo "${abs_way}/${new_dName}/_${add_date}")
+        echo "File_length_is_gt_255_characters"
+	break 1
       fi
 
       if [[ ! -f ${full_fName} ]]; then
