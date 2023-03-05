@@ -35,19 +35,25 @@ generate()
 create_newfile()
 {
   new_fName=$(generate $letters_f_name)
-  local tmp_fName=$new_fName
   newfExt=$(generate $letters_f_ext)
   newFile=${new_fName}_${add_date}.${newfExt}
+  len_newFile=${#newFile}
   full_fName=$(echo "${abs_way}/${new_dName}/${newFile}")
  
   while true
   do
-        if [[ ! -f ${full_fName} ]]; then
-          break 1
-        fi
+      if [[ ${len_newFile} -gt 255 ]]; then
+        echo "File_length_is_gt_255_characters"; return
+      fi
+
+      if [[ ! -f ${full_fName} ]]; then
+        break 1
+      fi
+    
       local len=${#full_fName}
       local lastSymbol=${full_fName:${len}-1:1}
       full_fName=${full_fName}${lastSymbol}
+      let "len_newFile=$len_newFile + 1"
   done
  
   fallocate -l ${file_size}K ${full_fName} 2>/dev/null
@@ -65,7 +71,6 @@ create_newfile()
        echo "Error when updating logfile" ; exit 1
      fi
   fi
-
 }
 
 create_newfolder()
@@ -73,16 +78,20 @@ create_newfolder()
 	new_dName=$(generate $d_letters)
 	local tmp_dName=$(echo ${new_dName})
 	new_dName=${new_dName}_${add_date}
+	local len_new_dName=${#new_dName}
         full_dName=$(echo "${abs_way}/${new_dName}")	
 	
 	while true
 	do
+	  if [[ ${len_new_dName} -gt 255 ]]; then
+	      echo "folder_length_is_gt_255_characters"; return
+	  fi
+
 	  if [[ ! -d ${full_dName} ]]; then
 	    break 1
 	  fi
 	
 	  local len=${#tmp_dName}
-  echo "tmp=$tmp_dName"
 	  local lastElem=${tmp_dName:$len-1:1}
 	  local firstElem=${tmp_dName:0:1}
 	  local let "random=$RANDOM % 2"
@@ -91,11 +100,10 @@ create_newfolder()
 	  else
 	      new_dName=${tmp_dName}${lastElem}
 	  fi
-	 # new_dName=${firstElem}${tmp_dName}${lastElem}
-	  tmp_dName=${new_dName}; echo "tmp=${tmp_dName}"
+	  tmp_dName=${new_dName}
 	  new_dName=${new_dName}_${add_date}
 	  full_dName=$(echo "${abs_way}/${new_dName}")
-echo "lastElem=$lastElem"
+	  let "len_new_dName=$len_new_dName + 1"
 	done
 
 	mkdir -p ${full_dName} 2>/dev/null
