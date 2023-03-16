@@ -1,4 +1,31 @@
+
 clearByLog()
 {
-    echo "Log"
+    echo "Enter AbsoluteWay for Logfile:"
+    while true
+    do
+        read logfile
+        if [ ! -f $logfile ]
+            then echo "Does not exit. Repeat please:"
+        else break 1
+        fi
+    done
+
+    # в логфайле строки с информацией о файлах оканчиваются на "kb" , а о папках нет,
+    # поэтому для поиска только папок ищу в логфайле строки неоканчивающиеся на 'b'
+    # удалив все папки, удаляться и файлы, находящиеся в этих папках
+    awk '! /b$/' $logfile > helpFile1
+
+    nbr_nondeleted_Dirs=$(awk 'END {print NR}' helpFile1)
+    count=1
+    while  [ $count -le $nbr_nondeleted_Dirs ]
+    do
+        deleteFolder=$(awk -F ';' 'NR==1 {print($1)}' helpFile1)
+        rm -rf $deleteFolder
+        sed '1d' helpFile1 > helpFile2; cat helpFile2 > helpFile1
+        # записал в helpFile2 все строки кроме первой из helpFile1 и
+        # перезаписал helpfile1 из helpfile2 (т.е. удалил первую строку в helpfile1)
+        let "count=$count + 1"
+    done
+    rm -rf helpFile1 helpFile2
 }
