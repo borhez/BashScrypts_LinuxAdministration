@@ -66,9 +66,9 @@ create_newfile()
       fi
   fi
 
-  echo  "${full_fName}; ${dateLog}; ${file_size}K" >> $logfile
+  echo  "${full_fName}; ${dateLog}; ${file_size}kb" >> $logfile
   if [ $? -ne 0 ] ; then
-     sudo echo "${full_fName}; ${dateLog}; ${file_size}K" >> $logfile 
+     sudo echo "${full_fName}; ${dateLog}; ${file_size}kb" >> $logfile 
      if [ $? -ne 0 ] ; then
        echo "Error when updating logfile" ; exit 1
      fi
