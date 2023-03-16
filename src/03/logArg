@@ -1,0 +1,4 @@
+clearByLog()
+{
+    echo "Log"
+}

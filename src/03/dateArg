@@ -1,0 +1,4 @@
+clearByDate()
+{
+    echo "Date"
+}
