@@ -1,4 +1,11 @@
 clearByMask()
 {
-    echo "Mask"
+    echo "Enter the letters of directories:"
+    read maskDirs
+
+    echo "Enter date in format: $(date +%d%m%y)"
+    read maskDate
+    
+    cd /
+    sudo find . -type d  -regex ".+/[$maskDirs]+_$maskDate+$" 2>/dev/null | xargs sudo rm -rf 2>/dev/null 
 }

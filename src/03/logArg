@@ -1,16 +1,12 @@
 
 clearByLog()
 {
-    echo "Enter way to Logfile:"
-    while true
-    do
-        read logfile
-        if [ ! -f $logfile ]
-            then echo "Does not exit. Repeat please:"
-        else break 1
-        fi
-    done
-
+    logfile="../01/log.txt"
+    if [ ! -f $logfile ]
+    	then echo "Logfile does not exit."
+	exit 1
+    fi
+    
     # в логфайле строки с информацией о файлах оканчиваются на "kb" , а о папках нет,
     # поэтому для поиска только папок ищу в логфайле строки неоканчивающиеся на 'b'
     # удалив все папки, удаляться и файлы, находящиеся в этих папках
