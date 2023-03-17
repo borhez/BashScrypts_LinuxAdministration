@@ -1,7 +1,7 @@
 
 clearByLog()
 {
-    echo "Enter AbsoluteWay for Logfile:"
+    echo "Enter way to Logfile:"
     while true
     do
         read logfile
@@ -21,11 +21,11 @@ clearByLog()
     while  [ $count -le $nbr_nondeleted_Dirs ]
     do
         deleteFolder=$(awk -F ';' 'NR==1 {print($1)}' helpFile1)
-        rm -rf $deleteFolder
-        sed '1d' helpFile1 > helpFile2; cat helpFile2 > helpFile1
+        sudo rm -rf $deleteFolder
+        sudo sed '1d' helpFile1 > helpFile2; cat helpFile2 > helpFile1
         # записал в helpFile2 все строки кроме первой из helpFile1 и
         # перезаписал helpfile1 из helpfile2 (т.е. удалил первую строку в helpfile1)
         let "count=$count + 1"
     done
-    rm -rf helpFile1 helpFile2
+    sudo rm -rf helpFile1 helpFile2
 }
