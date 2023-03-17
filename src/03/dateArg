@@ -7,9 +7,7 @@ clearByDate()
     echo "finishDate and time:" 
     read  finishDate
 
-    cd / 
-# sudo find / -type d -newerct "2023-03-17 11:35" ! -newerct "2023-03-17 11:49"  -regex ".+/[a-z]+_[0-9]+$"   -exec sudo rm -rf {} \; 2>/dev/null 
-    sudo find . -type d -newerct "$startDate" ! -newerct "$finishDate" | grep "_$(date +"%d%m%y")" | xargs sudo rm -rf ; 2>/dev/null
-
-
+    #буду запускать поиск из /; из других директорий ищет только в них, а не во всей файловой системе
+    cd /  
+    sudo find . -type d -newerct "$startDate" ! -newerct "$finishDate" | grep "_$(date +%d%m%y)" | xargs sudo rm -rf ; 2>/dev/null
 }
