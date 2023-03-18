@@ -1,0 +1,78 @@
+
+check_number_of_args()
+{
+  if [ "$must_n" -ne "$n_inParams" ]
+	then echo -e "Error!\nMust be $must_n parameters"
+	     echo -e "d_letters(<=7); f_letters(<=7).ext(<=3); file_size(<=100Mb)"
+ 	exit 1
+  fi
+}
+
+check_letters()
+{
+  re='^[a-z]+$'
+  if ! [[ $d_letters =~ $re ]]
+      then echo "Wrong letters for directories!" ; exit 1
+  fi
+ 
+  re='^[a-z]+([.][a-z]+)$'
+  if ! [[ $f_letters =~ $re ]]
+      then echo "Wrong letters for files" ; exit 1
+  fi
+
+  l_letters_d=${#d_letters}
+
+ #split f_letters by "."  Find letters for file-names and file-extension:
+  letters_f_name=${f_letters%.*} ;
+  l_letters_f_name=${#letters_f_name}
+  letters_f_ext=${f_letters#*.}
+  l_letters_f_ext=${#letters_f_ext}
+
+  if [[ $l_letters_d -gt 7 || $l_letters_f_name -gt 7 ]]
+     then echo "List of letters must be not great than 7"; exit 1
+  fi
+
+  if [ $l_letters_f_ext -gt 3 ]
+     then echo "List of letters for extension must be not great than 3"
+     exit 1
+  fi
+}
+
+check_size_param()
+{
+    local suffix="Mb"
+    file_size=${file_size%"$suffix"}
+    re='^[0-9]+$'
+    if ! [[ $file_size =~ $re ]]
+        then echo "Wrong format for size of files"; exit 1
+    fi
+
+    if [[ $file_size -gt 100 ]] ; then
+	      echo "Wrong size. Must be <= 100Mb"; exit 1
+    fi	
+}
+
+check_args()
+{
+   check_number_of_args
+   check_letters
+   check_size_param
+}
+
+workTime()
+{
+    timeEnd=$(date +%T)
+    let "totalSec=$(date +%s) - $secStart"
+    echo -e "\nScrypt start at $timeStart\nScrypt finish at $timeEnd\nSeconds=$totalSec"
+    echo -e "\nScrypt start at $timeStart\nScrypt finish at $timeEnd\nSeconds=$totalSec" >> $logfile
+}
+
+check_1Gb_freespace() 
+{
+	freespace=$( df -h / | awk 'NR>1 {print($4)}' | awk -F 'G' '{print$1}')
+	if [ $freespace -lt 2 ]
+		then echo "when creating the next file, there will be less than 1 GB of free space."
+    workTime
+    exit 1
+	fi
+}
