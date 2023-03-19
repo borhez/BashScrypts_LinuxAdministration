@@ -14,36 +14,26 @@ file_size=$3
 add_date=$(date +%d%m%y)
 dateLog=$(date)
 logfile="./log.txt"
+nFoldersToCreate=1
 
 check_args
 touch $logfile
-foundDirs=$(sudo find ~/DO4_LinuxMonitoring_v2.0-0/src/testfolder -type d -perm -u=w 2>/dev/null -not \( -path "*/bin" -o -path "*/bin/*" -o -path "*/sbin" -o -path "*/sbin/*" \))
+#foundDirs=$(sudo find ~/DO4_LinuxMonitoring_v2.0-0/src/testfolder -type d -perm -u=w 2>/dev/null -not \( -path "*/bin" -o -path "*/bin/*" -o -path "*/sbin" -o -path "*/sbin/*" \))
+foundDirs=$(sudo find / -type d -perm -u=w -not \( -path "*/bin" -o -path     "*/bin/*" -o -path "*/sbin" -o -path "*/sbin/*" \))
 check_1Gb_freespace
-
 for element in $foundDirs
 do
-    echo $element
-    let "nFoldersToCreate=1+$RANDOM % 100"
-    #echo -e "\nWill be created $nFoldersToCreate directories"
+    echo "Clogging up $element"
     for ((countDirs=1; countDirs <= $nFoldersToCreate; countDirs++))
     do
 	makeNewFolder
-        #echo "$countDirs directory is created"
 	let "createdFolders=$createdFolders+1"
-
-	let "nFilesToCreate=1+$createdFolders % $nFoldersToCreate"
-	#echo "will be created $nFilesToCreate files"
+	let "nFilesToCreate=1+$RANDOM % $createdFolders"
 	for ((countFiles=1; countFiles <= $nFilesToCreate; countFiles++))
 	do
 	    check_1Gb_freespace
 	    makeNewFile
-	   # echo "File $countFiles is created"
 	done
     done
-    #create_folder (full_dName=$item/dirName_date); countFolders +=1
-    #random: nFilesToCreate= 1+ (countFolders % nFoldersToCreate)
-    #for ( i=0 ; i<nFilesToCreate; i++ )
-    	#full_fName=full_dName/generatedName_date
-    	#fallocate -l ${file_size}M ${full_fName} 2>/dev/null
 done
-workTime
+printWorkTime

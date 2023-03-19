@@ -23,4 +23,4 @@ if [ $1 == 1 ]
 fi
 
 
-echo "End!"
+echo "Cleared!"

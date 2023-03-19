@@ -59,7 +59,7 @@ check_args()
    check_size_param
 }
 
-workTime()
+printWorkTime()
 {
     timeEnd=$(date +%T)
     let "totalSec=$(date +%s) - $secStart"
@@ -69,11 +69,16 @@ workTime()
 
 check_1Gb_freespace() 
 {
-	freespace=$( df -h / | awk 'NR>1 {print($4)}' | awk -F 'G' '{print$1}')
-	freespace=${freespace%.*}
-	if [ $freespace -lt 2 ]
+	#вывести результат df -h в freespace, если 4столбец заканчивается на G,
+	#например 2.4G -запишется в freespace, а 981M не запишется и freespace останется null
+	freespace=$( df -h / | awk '{print$4}' | awk '/G$/')
+	
+	if [ $freespace ] 
+		then echo "${freespace} left"
+	fi
+	if [ ! ${freespace} ]
 		then echo "when creating the next file, there will be less than 1 GB of free space."
-		workTime
+		printWorkTime
 		exit 1
 	fi
 }
