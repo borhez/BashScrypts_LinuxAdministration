@@ -133,3 +133,12 @@ create_newfolder()
 	fi
 }
 
+makeNewFolder()
+{
+    local sd=1
+}
+
+makeNewFile()
+{
+    local dasd=1
+}

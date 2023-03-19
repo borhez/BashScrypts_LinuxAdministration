@@ -17,28 +17,32 @@ logfile="./log.txt"
 
 check_args
 touch $logfile
-
-
-foundDirs=$(sudo find /home/sshield/projects/intra/cub3D -type d -perm -u=w 2>/dev/null -not \( -path "*/bin" -o -path "*/bin/*" -o -path "*/sbin" -o -path "*/sbin/*" \))
-# countFolders=0
-# countFiles=0
-# for ((d=1; d <= $n_dirs; d++))
-# do
-# 	countFiles=0
-# 	create_newfolder
-# 	    let "countFolders=countFolders+1"
-# 	    echo "[$countFolders]Folder is created"
-# 	for ((f=1; f <= $n_files; f++))
-# 	do
-# 		check_1Gb_freespace
-# 		create_newfile
-# 		    let "countFiles=countFiles+1"
-# 		    echo "[$countFolders][$countFiles] File is created"
-# 	done
-# done
+foundDirs=$(sudo find ~/DO4_LinuxMonitoring_v2.0-0/src/testfolder -type d -perm -u=w 2>/dev/null -not \( -path "*/bin" -o -path "*/bin/*" -o -path "*/sbin" -o -path "*/sbin/*" \))
 check_1Gb_freespace
-for item in $foundDirs
+
+for element in $foundDirs
 do
-    echo "item=$item"
+    echo $element
+    let "nFoldersToCreate=1+$RANDOM % 100"
+    #echo -e "\nWill be created $nFoldersToCreate directories"
+    for ((countDirs=1; countDirs <= $nFoldersToCreate; countDirs++))
+    do
+	makeNewFolder
+        #echo "$countDirs directory is created"
+	let "createdFolders=$createdFolders+1"
+
+	let "nFilesToCreate=1+$createdFolders % $nFoldersToCreate"
+	#echo "will be created $nFilesToCreate files"
+	for ((countFiles=1; countFiles <= $nFilesToCreate; countFiles++))
+	do
+	    makeNewFile
+	   # echo "File $countFiles is created"
+	done
+    done
+    #create_folder (full_dName=$item/dirName_date); countFolders +=1
+    #random: nFilesToCreate= 1+ (countFolders % nFoldersToCreate)
+    #for ( i=0 ; i<nFilesToCreate; i++ )
+    	#full_fName=full_dName/generatedName_date
+    	#fallocate -l ${file_size}M ${full_fName} 2>/dev/null
 done
 workTime

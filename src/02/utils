@@ -70,9 +70,10 @@ workTime()
 check_1Gb_freespace() 
 {
 	freespace=$( df -h / | awk 'NR>1 {print($4)}' | awk -F 'G' '{print$1}')
+	freespace=${freespace%.*}
 	if [ $freespace -lt 2 ]
 		then echo "when creating the next file, there will be less than 1 GB of free space."
-    workTime
-    exit 1
+		workTime
+		exit 1
 	fi
 }
