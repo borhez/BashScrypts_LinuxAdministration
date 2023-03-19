@@ -1,7 +1,7 @@
 
 clearByLog()
 {
-    logfile="../01/log.txt"
+    logfile="../02/log.txt"
     if [ ! -f $logfile ]
     	then echo "Logfile does not exit."
 	exit 1

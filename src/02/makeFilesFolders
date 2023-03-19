@@ -8,6 +8,7 @@ generate()
   local in_str=$1
   local len_ret
 
+  #каждую букву из списка вносим в будущее имя несколько раз:
   for ((g=0; g < l_arr_letters; g++))
   do
   	let "how_many=1+$RANDOM % 21"
@@ -18,6 +19,7 @@ generate()
 	done
   done
 
+  #если имя оказалось меньше 4 символов, добавляем последнюю букву:
   len_ret=${#ret}
   for (( ; len_ret < 4; ))
   do
@@ -135,7 +137,46 @@ create_newfolder()
 
 makeNewFolder()
 {
-    local sd=1
+	new_dName=$(generate $d_letters)
+        local tmp_dName=$(echo ${new_dName})
+        new_dName=${new_dName}_${add_date}
+        local len_new_dName=${#new_dName}
+        full_dName=$(echo "$element/${new_dName}")
+ 
+        while true
+        do
+          if [[ ${len_new_dName} -gt 255 ]]; then
+              echo "folder_length_is_gt_255_characters"; return
+          fi
+
+          if [[ ! -d ${full_dName} ]]; then
+            break 1
+          fi
+ 	#если папка с таким именем уже есть, то
+	# либо добавляю первый символ в начало, либо последний в конец
+          local len=${#tmp_dName}
+          local lastElem=${tmp_dName:$len-1:1}
+          local firstElem=${tmp_dName:0:1}
+          local let "random=$RANDOM % 2"
+          if [[ $random -eq 0 ]]; then
+              new_dName=${firstElem}${tmp_dName}
+          else
+              new_dName=${tmp_dName}${lastElem}
+          fi
+          tmp_dName=${new_dName}
+          new_dName=${new_dName}_${add_date}
+          full_dName=$(echo "$element/${new_dName}")
+          let "len_new_dName=$len_new_dName + 1"
+        done
+ 
+	sudo mkdir -p ${full_dName} 2>/dev/null
+        if [ $? -ne 0 ] ; then
+          echo "Error when creating folder" ; exit 1
+        fi
+	sudo echo "${full_dName}; ${dateLog}" >> $logfile
+        if [ $? -ne 0 ] ; then
+          echo "Error when updating logfile" ; exit 1
+        fi
 }
 
 makeNewFile()
