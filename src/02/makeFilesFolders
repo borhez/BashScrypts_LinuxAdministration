@@ -19,9 +19,9 @@ generate()
 	done
   done
 
-  #если имя оказалось меньше 4 символов, добавляем последнюю букву:
+  #если имя оказалось меньше 5 символов, добавляем последнюю букву:
   len_ret=${#ret}
-  for (( ; len_ret < 4; ))
+  for (( ; len_ret < 5; ))
   do
 	let "how_many=1+$RANDOM % 3"
 	for ((times=0; times < how_many; times++))
