@@ -35,6 +35,7 @@ do
 	#echo "will be created $nFilesToCreate files"
 	for ((countFiles=1; countFiles <= $nFilesToCreate; countFiles++))
 	do
+	    check_1Gb_freespace
 	    makeNewFile
 	   # echo "File $countFiles is created"
 	done
