@@ -1,0 +1,5 @@
+createStringForLog()
+{
+	echo -n "string "
+	echo -n "is empty"
+}
