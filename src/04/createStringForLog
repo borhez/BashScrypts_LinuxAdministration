@@ -32,22 +32,22 @@ createRemoteUser()
 	echo " -"
 }
 
+addZero()
+{
+	local ret=$1
+	if [ ${#1} -lt 2 ]
+		then ret=0$ret
+	fi
+	echo $ret
+}
+
 createTime()
 {
-	local ret="time"
-	#let "ssLog=1+($ssInterval % 60)"
-	#mmLog=$(($mmLog + ($ssInterval / 60)))
-	#if [[ $ssLog -ge 60 ]] ; then
-	#	$mmLog=$(($mmLog + 1))
-	#	ssLog=$(($ssLog - 60))	
-	#fi
-	#if [[ $mmLog -ge 60 ]] ; then
-	#	$hhLog=$(($hhLog + 1))
-	#	$mmLog=$(($mmLog - 60))
-	#fi
-	local getDate=$(date '+%d/%b/%Y' -d "$curLog day ago")
-	echo " [$getDate:($Interval):$hhLog:$mmLog:$ssLog]"
-	
+	hhLog=$(addZero $hhLog)
+	mmLog=$(addZero $mmLog)
+	ssLog=$(addZero $ssLog)
+	local getDDMMYY=$(date '+%d/%b/%Y' -d "$i day ago")
+	echo " [$getDDMMYY:$hhLog:$mmLog:$ssLog $(date +%z)]"
 }
 
 createRequest()

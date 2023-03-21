@@ -16,12 +16,13 @@ ftCheckExistingFiles()
 
 ftCheckExistingFiles
 rm -f log*.txt
-for (( i=1; i<=2; i++))
+for (( i=1; i<=5; i++))
 do
 	touch log$i.txt
 	nbrItem=$(($RANDOM % 901 +100))
 	echo -n "Random=$nbrItem; Creating notes in log"$i".txt; "
-       	Interval=$(((60 * 60 *24) / $nbrItem))
+       	Interval=$(((60 * 60 * 24) / $nbrItem))
+	ssLog=0; mmLog=0; hhLog=0
 	while [ $nbrItem -gt 0 ]
 	do
 		ssLog=$(($ssLog + ($Interval % 60)))
@@ -38,8 +39,7 @@ do
 		echo  "$(createStringForLog)"  >> log"$i".txt
 		nbrItem=$(($nbrItem - 1))
 	done
-	echo "Created $(awk 'END {print NR}' log"$i".txt) notes!"
-	ssLog=0; mmLog=0; hhLog=0		
+	echo "Created $(awk 'END {print NR}' log"$i".txt) notes!"		
 done
 
 
