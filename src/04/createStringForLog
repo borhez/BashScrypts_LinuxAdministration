@@ -34,7 +34,10 @@ createRemoteUser()
 createTime()
 {
 	local ret="time"
+	let "SEC=$SEC + ($INTERVAL % 60)"
+	echo -n "  SEC=$SEC"
 	echo " [$ret]"
+	
 }
 
 createRequest()
