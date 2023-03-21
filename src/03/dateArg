@@ -1,3 +1,5 @@
+#!/bin/bash
+
 clearByDate()
 {   
     DATE="$(date +%Y)-$(date +%m)-$(date +%d) $(date +%R)"

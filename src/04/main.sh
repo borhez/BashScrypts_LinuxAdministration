@@ -8,8 +8,9 @@ trap "exit 1" TERM
 TOP_PID=$$
 ftCheckExistingFiles()
 {
-	if [[ ! -f "./userAgents" || ! -f "./createStringForLog" ]] ;then
-		echo -e "There is not all files! (createsStringForLog, userAgents)\nExit"
+	if [[ ! -f "userAgents" || ! -f "createStringForLog" || ! -f "topGoogleRequest" ]]
+		then echo -n "There is not all files! "
+		echo -e "(createsStringForLog, userAgents, topGoogleRequest).\nExit"
 		kill -s TERM $TOP_PID
 	fi
 }

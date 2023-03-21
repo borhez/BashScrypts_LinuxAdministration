@@ -1,3 +1,5 @@
+#!/bin/bash
+
 clearByMask()
 {
     echo "Enter the letters of directories:"
