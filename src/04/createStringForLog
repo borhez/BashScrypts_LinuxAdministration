@@ -34,9 +34,18 @@ createRemoteUser()
 createTime()
 {
 	local ret="time"
-	let "SEC=$SEC + ($INTERVAL % 60)"
-	echo -n "  SEC=$SEC"
-	echo " [$ret]"
+	let "ssLog=$ssLog + ($ssInterval % 60)"
+	mmLog=$(($mmLog + ($ssInterval / 60)))
+	if [[ $ssLog -ge 60 ]] ; then
+		$mmLog=$(($mmLog + 1))
+		ssLog=$(($ssLog - 60))	
+	fi
+	if [[ $mmLog -ge 60 ]] ; then
+		$hhLog=$(($hhLog + 1))
+		$mmLog=$(($mmLog - 60))
+	fi
+	#ret="$MINUTES:$SEC"
+	echo " [($ssInterval)$hhLog:$mmLog:$ssLog]"
 	
 }
 
