@@ -23,7 +23,7 @@ do
 	touch log$i.txt
 	nbrItem=$(($RANDOM % 901 +100))
 	echo -n "Random=$nbrItem; Creating notes in log"$i".txt; "
-	HOURS=0; MINUTES=0; SEC=0;
+	HOURS=0; MINUTES=0; SEC=0; INTERVAL=$(((60 * 60 *24) / $nbrItem))
 	while [ $nbrItem -gt 0 ]
 	do
 		echo  "$(createStringForLog)"  >> log"$i".txt
