@@ -15,13 +15,15 @@ ftCheckExistingFiles()
 }
 
 ftCheckExistingFiles
+rm -f log*.txt
 for (( i=1; i<=2; i++))
 do
 	#Если в текущей папке уже есть файл log$i.txt, то сначала его удалю:
-	rm -f log$i.txt
+	#rm -f log.txt
 	touch log$i.txt
 	nbrItem=$(($RANDOM % 901 +100))
 	echo -n "Random=$nbrItem; Creating notes in log"$i".txt; "
+	HOURS=0; MINUTES=0; SEC=0;
 	while [ $nbrItem -gt 0 ]
 	do
 		echo  "$(createStringForLog)"  >> log"$i".txt
