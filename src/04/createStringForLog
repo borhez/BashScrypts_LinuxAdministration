@@ -1,3 +1,4 @@
+#!/usr/bin/bash
 #nginx log in combined format:
 #$remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_    agent"
 #Ex: 192.168.25.96 - - [20/Mar/2023:12:14:54 +0300] "GET /report.html HTTP/1.1" 200 112438 "-" "Mozilla/5.0     (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 YaBrowser/23.1.2.996 (beta) Yo    wser/2.5 Safari/537.36"
@@ -34,18 +35,18 @@ createRemoteUser()
 createTime()
 {
 	local ret="time"
-	let "ssLog=$ssLog + ($ssInterval % 60)"
-	mmLog=$(($mmLog + ($ssInterval / 60)))
-	if [[ $ssLog -ge 60 ]] ; then
-		$mmLog=$(($mmLog + 1))
-		ssLog=$(($ssLog - 60))	
-	fi
-	if [[ $mmLog -ge 60 ]] ; then
-		$hhLog=$(($hhLog + 1))
-		$mmLog=$(($mmLog - 60))
-	fi
-	#ret="$MINUTES:$SEC"
-	echo " [($ssInterval)$hhLog:$mmLog:$ssLog]"
+	#let "ssLog=1+($ssInterval % 60)"
+	#mmLog=$(($mmLog + ($ssInterval / 60)))
+	#if [[ $ssLog -ge 60 ]] ; then
+	#	$mmLog=$(($mmLog + 1))
+	#	ssLog=$(($ssLog - 60))	
+	#fi
+	#if [[ $mmLog -ge 60 ]] ; then
+	#	$hhLog=$(($hhLog + 1))
+	#	$mmLog=$(($mmLog - 60))
+	#fi
+	local getDate=$(date '+%d/%b/%Y' -d "$curLog day ago")
+	echo " [$getDate:($Interval):$hhLog:$mmLog:$ssLog]"
 	
 }
 
