@@ -16,15 +16,6 @@ ftCheckExistingFiles()
 	echo $ret
 }
 
-#ftMove()
-#{
-#	regExpr='^[log]+[1-5][.txt]+$'
-#	if [[ "log2.txt" =~ $regExpr ]]
-#	then echo YES; exit 0
-#	else echo NO; exit 1
-#	fi
-#}
-
 ftSortByCode()
 {
 	#local FilesForAwk=$(ftCheckExistingFiles)
@@ -42,11 +33,11 @@ ftUniqIP()
 	{
 	    if (!($1 in a)) 
 	        a[$1] = $1;
-       	}
+      	}
 	END { 
 	    for (i in a) 
 	       print a[i]
-	}' $FilesForAwk
+        }' $FilesForAwk
 
 	# 'a' это массив., индексируется строкой $1 (=IP)
 	#Идём по всем строкам, смотрим первый столбец $1 он же ip.
@@ -65,10 +56,20 @@ ftUniqIP()
 
 ftErrorRequests()
 {
-	echo "Three"
+	awk '($9 ~ /^5|4/) {printf"%s %s %s %s %s \n", $1, $6, $7, $8, $9}' $FilesForAwk
+
+	#с добавлением user_agent:
+	# awk '
+	#	($9 ~ /^5|4/)
+	#	{printf"%s %s %s %s %s ", $1, $6, $7, $8, $9}
+	#	{ s = ""; for (i = 12; i <= NF; i++)  s = s $i " "; print s}
+	#     ' $FilesForAwk
+	
+	#вся строка из лога:
+	#awk '($9 ~ /^5|4/) {print $0}' $FilesForAwk
 }
 
 ftUniqIPinErrorRequests()
 {
-	echo "Four"
+	ftErrorRequests | awk '{ if (!($1 in a)) a[$1] = $1;} END { for (i in a) print a[i]}'
 }
