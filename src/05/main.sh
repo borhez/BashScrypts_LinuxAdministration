@@ -1,5 +1,6 @@
 #!/bin/bash
 
+.	./awkFuncs
 regExpr='^([1-4]|4)$'
 if [[ $# -ne 1 || ! $1 =~ $regExpr ]]
 	then echo "Скрипт запускается с одним аргументом:"
@@ -12,6 +13,11 @@ fi
 
 echo Start!
 
-
-
+case $1 in
+	"1") ftSortByCode;;
+	"2") ftUniqIP;;
+	"3") ftErrorRequests;;
+	"4") ftUniqIPinErrorRequests;;
+	* ) echo "Error" ; exit 1;;
+esac
 echo End!

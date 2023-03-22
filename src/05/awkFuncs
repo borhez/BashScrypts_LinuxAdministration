@@ -1,0 +1,21 @@
+#!bin/bash
+
+ftSortByCode()
+{
+	echo "One"
+}
+
+ftUniqIP()
+{
+	echo "Two"
+}
+
+ftErrorRequests()
+{
+	echo "Three"
+}
+
+ftUniqIPinErrorRequests()
+{
+	echo "Four"
+}
