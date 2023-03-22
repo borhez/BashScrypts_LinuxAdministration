@@ -1,6 +1,7 @@
 #!/bin/bash
 
 .	./awkFuncs
+
 regExpr='^([1-4]|4)$'
 if [[ $# -ne 1 || ! $1 =~ $regExpr ]]
 	then echo "Скрипт запускается с одним аргументом:"
@@ -11,8 +12,7 @@ if [[ $# -ne 1 || ! $1 =~ $regExpr ]]
 	exit 1
 fi
 
-echo Start!
-
+FilesForAwk=$(ftCheckExistingFiles)
 case $1 in
 	"1") ftSortByCode;;
 	"2") ftUniqIP;;
@@ -20,4 +20,3 @@ case $1 in
 	"4") ftUniqIPinErrorRequests;;
 	* ) echo "Error" ; exit 1;;
 esac
-echo End!

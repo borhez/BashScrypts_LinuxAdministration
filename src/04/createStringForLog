@@ -19,11 +19,18 @@ createStringForLog()
 
 createAddr()
 {
-	local ret=$((RANDOM % 256))
+#	local ret=$((RANDOM % 10))
+#	local i=0
+#	for i in {1..3}
+#	do
+#		ret+="."$((RANDOM % 10))
+#	done
+
+	local ret="185.202"
 	local i=0
-	for i in {1..3}
+	for i in {2..3}
 	do
-		ret+="."$((RANDOM % 256))
+		ret+="."$((RANDOM % 100 + 1))
 	done
 	echo $ret
 }

@@ -27,8 +27,8 @@ ftCheckExistingFiles()
 
 ftSortByCode()
 {
-	local AwkArgs=$(ftCheckExistingFiles)
-	awk 'NR' ${AwkArgs} | sort -t $' '  -k6
+	#local FilesForAwk=$(ftCheckExistingFiles)
+	awk 'NR' ${FilesForAwk} | sort -t $' ' -k6
 	#-t $'\t' задаст разделитель полей как tab.
 	#По умолчанию пробел. --> можно не указывать -t $' '
 	#-k6,6 для сортировки из столбца 6 в столбец 6. Также при -k6.
@@ -38,7 +38,13 @@ ftSortByCode()
 
 ftUniqIP()
 {
-	echo "Two"
+	awk '{ if (!($1 in a)) a[$1] = $1; } END { for (i in a) print a[i]}' $FilesForAwk
+	#Следующие 2 команды  выводят уникальные IP, но отсортированные!
+	#awk '{print $1}' ${FilesForAwk}| sort -u
+        #awk '{print $1}' ${FilesForAwk}|sort| uniq -c
+	#-c для каждого уникального IP покажет количество дубликатов
+	#Просуммировать этот столбец можно:
+	# awk '{ret+=$1} END {print ret}'. Совпадает с числом всех IP
 }
 
 ftErrorRequests()
