@@ -1,8 +1,39 @@
-#!bin/bash
+#!/bin/bash
+
+nFiles=5
+
+trap "echo -e 'Not all Logs in ../04/.\nExit Error'; exit 1" TERM
+ftCheckExistingFiles()
+{
+	local ret=""
+	for (( i=1; i<=$nFiles; i++ ))
+	do
+		if [[ ! -f "../04/log$i.txt" ]]
+		then kill -s TERM $$
+		fi
+		ret=$ret" ../04/log$i.txt"
+	done
+	echo $ret
+}
+
+#ftMove()
+#{
+#	regExpr='^[log]+[1-5][.txt]+$'
+#	if [[ "log2.txt" =~ $regExpr ]]
+#	then echo YES; exit 0
+#	else echo NO; exit 1
+#	fi
+#}
 
 ftSortByCode()
 {
-	echo "One"
+	local AwkArgs=$(ftCheckExistingFiles)
+	awk 'NR' ${AwkArgs} | sort -t $' '  -k6
+	#-t $'\t' задаст разделитель полей как tab.
+	#По умолчанию пробел. --> можно не указывать -t $' '
+	#-k6,6 для сортировки из столбца 6 в столбец 6. Также при -k6.
+	#-k1n будет означать числовую сортировку 1го столбца
+	#по умолчанию порядок возрастания. -k6r -k6,6r -k1nr для убывания
 }
 
 ftUniqIP()
