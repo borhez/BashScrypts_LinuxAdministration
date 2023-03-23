@@ -18,70 +18,46 @@ ftCheckExistingFiles()
 
 ftSortByCode()
 {
-	#local FilesForAwk=$(ftCheckExistingFiles)
 	awk 'NR' ${FilesForAwk} | sort -t $' ' -k6
 	#-t $'\t' задаст разделитель полей как tab.
 	#По умолчанию пробел. --> можно не указывать -t $' '
 	#-k6,6 для сортировки из столбца 6 в столбец 6. Также при -k6.
-	#-k1n будет означать числовую сортировку 1го столбца
+	#-k1n будет означать числовую сортировку по первому столбцу
 	#по умолчанию порядок возрастания. -k6r -k6,6r -k1nr для убывания
 }
 
 ftUniqIP()
 {
-	#awk '
-	#{
-	 #   if (!($1 in a)) 
-	  #      a[$1] = $1;
-#      	}
-#	END { 
-#	    for (i in a) 
-#	       print a[i]
- #       }' $FilesForAwk
-k=12
+#HTTP requests containing the same IP, the same date, and the same user agent are considered a unique visitor. By default, it includes web crawlers/spiders.
 
-	nRequests=$(awk 'END {print NR}' $FilesForAwk)
-	for (( k=1; k<=$nRequests; k++ ))
-	do
-		curString=$(echo $(cat $FilesForAwk | head -n $k | tail -n +$k))
-		IP=$(echo $curString| awk '{print $1}')
-		userAgent=$(echo $curString | awk -F '\"' '{print $6}')
-		echo "k=$k; $IP $userAgent"
-		
-	done
- 
-#awk '
- #       {FS="\"" {ip=}
-  #          if (!($1 in a)) 
-   #             a[$1] = $1;
-#	    else 
-#	    {
-#		 { s = ""; for (i = 12; i <= NF; i++)  s = s $i " ";}
-#	        
-#	    }
- #      }
-  #     END { 
-   #        for (i in a) 
-    #          print a[i]
-     #   }' $FilesForAwk
+#---------------------SORT/UNIQ:----------
 
-
-	# 'a' это массив., индексируется строкой $1 (=IP)
-	#Идём по всем строкам, смотрим первый столбец $1 он же ip.
-	#Если в 'а' не существует элемента, индексируемого строкой $1 (IP),
-	#то в элемент a[$1], т.е. в элемент, индексируемый строкой
-	#равной текущему рассматриваемому ip (столбцу $1), мы
-	#записываем этот ip; a[$1] = $1.
-	#После обработки всех строк, элементы массива - уникальные ip;
-	#Распечатаем их:  END {for (i in a) print a[i]}' 
-
-	#Sort и uniq выводят уникальные IP, но отсортированные!
-	#awk '{print $1}' ${FilesForAwk}| sort -u
+        #Sort и uniq выводят уникальные IP, но отсортированные!
+        #awk '{print $1}' ${FilesForAwk}| sort -u
         #awk '{print $1}' ${FilesForAwk}|sort| uniq -c
-	#-c для каждого уникального IP покажет количество дубликатов
+        #-c для каждого уникального IP покажет количество дубликатов
 
-	#awk '{print $1}' ${FilesForAwk}| sort -u
+#-----------------associative massive awk:
 
+	awk '
+	{
+	    if (!($1 in a)) 
+	        a[$1] = $1;
+      	}
+	END { 
+	    for (i in a) 
+	       print a[i]
+        }' $FilesForAwk
+
+
+        # 'a' это массив., индексируется строкой $1 (=IP)
+        #Идём по всем строкам, смотрим первый столбец $1 он же ip.
+        #Если в 'а' не существует элемента, индексируемого строкой $1 (IP),
+        #то в элемент a[$1], т.е. в элемент, индексируемый строкой
+        #равной текущему рассматриваемому ip (столбцу $1), мы
+        #записываем этот ip; a[$1] = $1.
+        #После обработки всех строк, элементы массива - уникальные ip;
+        #Распечатаем их:  END {for (i in a) print a[i]}' 
 }
 
 ftErrorRequests()

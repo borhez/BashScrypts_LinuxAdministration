@@ -18,5 +18,8 @@ ftCheckExistingFiles()
 
 FilesForGoaccess=$(ftCheckExistingFiles)
 echo $FilesForGoAccess
-sudo goaccess $FilesForGoaccess --log-format=COMBINED -o /var/www/html/report.html
-#HTTP-запросы, содержащие тот же IP, ту же дату и тот же пользовательский агент, считаются уникальным посетителем.
+#команда для вывода отчета в терминале:
+goaccess $FilesForGoaccess --log-format=COMBINED
+
+#команда для вывода отчета в html файл
+sudo goaccess $FilesForGoaccess --log-format=COMBINED -o /var/www/html/goaccess_report.html
