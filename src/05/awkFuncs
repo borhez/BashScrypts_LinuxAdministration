@@ -29,15 +29,42 @@ ftSortByCode()
 
 ftUniqIP()
 {
-	awk '
-	{
-	    if (!($1 in a)) 
-	        a[$1] = $1;
-      	}
-	END { 
-	    for (i in a) 
-	       print a[i]
-        }' $FilesForAwk
+	#awk '
+	#{
+	 #   if (!($1 in a)) 
+	  #      a[$1] = $1;
+#      	}
+#	END { 
+#	    for (i in a) 
+#	       print a[i]
+ #       }' $FilesForAwk
+k=12
+
+	nRequests=$(awk 'END {print NR}' $FilesForAwk)
+	for (( k=1; k<=$nRequests; k++ ))
+	do
+		curString=$(echo $(cat $FilesForAwk | head -n $k | tail -n +$k))
+		IP=$(echo $curString| awk '{print $1}')
+		userAgent=$(echo $curString | awk -F '\"' '{print $6}')
+		echo "k=$k; $IP $userAgent"
+		
+	done
+ 
+#awk '
+ #       {FS="\"" {ip=}
+  #          if (!($1 in a)) 
+   #             a[$1] = $1;
+#	    else 
+#	    {
+#		 { s = ""; for (i = 12; i <= NF; i++)  s = s $i " ";}
+#	        
+#	    }
+ #      }
+  #     END { 
+   #        for (i in a) 
+    #          print a[i]
+     #   }' $FilesForAwk
+
 
 	# 'a' это массив., индексируется строкой $1 (=IP)
 	#Идём по всем строкам, смотрим первый столбец $1 он же ip.
@@ -52,6 +79,9 @@ ftUniqIP()
 	#awk '{print $1}' ${FilesForAwk}| sort -u
         #awk '{print $1}' ${FilesForAwk}|sort| uniq -c
 	#-c для каждого уникального IP покажет количество дубликатов
+
+	#awk '{print $1}' ${FilesForAwk}| sort -u
+
 }
 
 ftErrorRequests()
@@ -60,7 +90,7 @@ ftErrorRequests()
 
 	#с добавлением user_agent:
 	# awk '
-	#	($9 ~ /^5|4/)
+	##	($9 ~ /^5|4/)
 	#	{printf"%s %s %s %s %s ", $1, $6, $7, $8, $9}
 	#	{ s = ""; for (i = 12; i <= NF; i++)  s = s $i " "; print s}
 	#     ' $FilesForAwk
