@@ -1,6 +1,11 @@
 #!/bib/bash
 
+ftCommaReplacement()
+{
+echo -1
+}
+
 ft_cpu()
 {
-	echo 777
+	echo $(top -b -n 1 | awk 'NR>7 {cpu=cpu+$9} END {printf("%.1f", cpu)}')
 }
