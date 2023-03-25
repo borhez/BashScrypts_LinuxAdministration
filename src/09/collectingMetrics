@@ -9,3 +9,8 @@ ft_cpu()
 {
 	echo $(top -b -n 1 | awk 'NR>7 {cpu=cpu+$9} END {printf("%.1f", cpu)}')
 }
+
+ft_mem()
+{
+	echo $(free -m | grep "Mem:" | awk '{printf("%.2f", $3/$2*100)}')
+}
