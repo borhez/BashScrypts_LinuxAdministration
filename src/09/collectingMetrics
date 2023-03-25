@@ -1,10 +1,5 @@
 #!/bib/bash
 
-ftCommaReplacement()
-{
-echo -1
-}
-
 ft_cpu()
 {
 	echo $(top -b -n 1 | awk 'NR>7 {cpu=cpu+$9} END {printf("%.1f", cpu)}')
@@ -12,5 +7,21 @@ ft_cpu()
 
 ft_mem()
 {
-	echo $(free -m | grep "Mem:" | awk '{printf("%.2f", $3/$2*100)}')
+	echo $(free -m | awk 'NR==2 {printf("%.1f", $3/$2*100)}')
+}
+
+ft_memTotal()
+{
+        echo $(top -b -n 1 | awk 'NR==4 {printf("%.1f", $4)}')
+}
+
+
+ft_diskUsed()
+{
+	echo $(df -m / | awk 'NR==2 {print $5}' | awk -F '%' '{printf "%0.1f", $1}')
+}
+
+ft_diskAvailable()
+{
+	echo $(df -m / | awk 'NR==2 {print $4}')
 }
