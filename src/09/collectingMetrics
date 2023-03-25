@@ -1,0 +1,6 @@
+#!/bib/bash
+
+ft_cpu()
+{
+	echo 777
+}
