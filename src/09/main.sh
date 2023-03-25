@@ -4,7 +4,6 @@ source collectingMetrics
 
 while true
 do
-	#echo "Memmory total - $(free|awk 'NR==2 {print $2}')
 	echo "
 	# HELP CPU
 	# TYPE CPU gauge
