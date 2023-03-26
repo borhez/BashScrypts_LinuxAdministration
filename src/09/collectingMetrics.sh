@@ -7,7 +7,7 @@ ft_cpu()
 
 ft_mem()
 {
-	echo $(free -m | awk 'NR==2 {printf("%.1f", $3/$2*100)}')
+	echo $(free -m | awk 'NR==2 {printf("%.1f", $3)}')
 }
 
 ft_memTotal()
@@ -18,7 +18,7 @@ ft_memTotal()
 
 ft_diskUsed()
 {
-	echo $(df -m / | awk 'NR==2 {print $5}' | awk -F '%' '{printf "%0.1f", $1}')
+	echo $(df -m / | awk 'NR==2 {print $3}')
 }
 
 ft_diskAvailable()
@@ -46,4 +46,11 @@ echo \# HELP DISK_AVAILABLE_my
 echo \# TYPE DISK_AVAILABLE_my gauge
 echo DISK_AVAILABLE_my $(ft_diskAvailable)
 
+echo \# HELP DISK_READ_my
+echo \# TYPE DISK_READ_my gauge
+echo DISK_READ_my $(sudo iotop -b -n 1 |awk 'NR==1 {print $4}')
+
+echo \# HELP DISK_WRITTEN_my
+echo \# TYPE DISK_WRITTEN_my gauge
+echo DISK_WRITTEN_my $(sudo iotop -b -n 1 |awk 'NR==1 {print $10}')
 
