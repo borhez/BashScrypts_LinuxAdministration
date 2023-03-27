@@ -9,5 +9,23 @@ clearByMask()
     read maskDate
     
     cd /
-    sudo find . -type d  -regex ".+/[$maskDirs]+_$maskDate+$" 2>/dev/null | xargs sudo rm -rf 2>/dev/null 
+#    sudo find . -type d  -regex ".+/[$maskDirs]+_$maskDate+$" 2>/dev/null | xargs sudo rm -rf 2>/dev/null 
+    resMask=$( sudo find . -type d  -regex ".+/[$maskDirs]+_$maskDate+$" 2>/dev/null )
+
+   if [[ ! $resMask ]] ;then
+           echo -e "\nNothing is found. Or wrong Letters or DateFormat\n"
+           exit 0
+   fi
+#   echo -e "\nFound:"
+#   for elMask in $resMask
+#   do
+#           echo "$elMask"
+#   done
+#   echo "Delete all? ("yes" for delete)"
+#   read answerMask
+#   if ! [[ $answerMask == "yes" ]]
+#        then echo "Not deleted"; exit 0
+#   fi
+
+   echo $resMask | xargs sudo rm -rf 2>/dev/null
 }

@@ -11,5 +11,23 @@ clearByDate()
 
     #буду запускать поиск из /; из других директорий ищет только в них, а не во всей файловой системе
     cd /  
-     sudo find . -type d -newerct "$startDate" ! -newerct "$finishDate" 2>/dev/null | grep "_[0-9][0-9][0-9][0-9][0-9][0-9]$" | xargs sudo rm -rf 2>/dev/null
+#     sudo find . -type d -newerct "$startDate" ! -newerct "$finishDate" 2>/dev/null | grep "_[0-9][0-9][0-9][0-9][0-9][0-9]$" | xargs sudo rm -rf 2>/dev/null
+
+     res03=$( sudo find . -type d -newerct "$startDate" ! -newerct "$finishDate" 2>/dev/null | grep "_[0-9][0-9][0-9][0-9][0-9][0-9]$" )
+   if [[ ! $res03 ]] ;then
+	   echo -e "\nNothing is found. Or wrong DateFormat\n"
+	   exit 0
+   fi
+   echo -e "\nFound:"
+   for el_03 in $res03
+   do
+	   echo "$el_03"
+   done
+   echo "Delete all? ("yes" for delete)"
+   read answer
+   if ! [[ $answer == "yes" ]]
+   	then echo "Not deleted"; exit 0
+   fi
+
+   echo $res03 | xargs sudo rm -rf 2>/dev/null
 }
