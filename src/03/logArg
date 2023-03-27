@@ -2,7 +2,9 @@
 
 clearByLog()
 {
-    logfile="../02/log.txt"
+    echo "Type logfileName (Way to it):"
+    read logfile
+   # logfile="../02/log.txt"
     if [ ! -f $logfile ]
     	then echo "Logfile does not exit."
 	exit 1

@@ -17,8 +17,8 @@ logfile="./log.txt"
 nFoldersToCreate=1
 
 check_args
+echo -e "Arguments are valid\nPreparing to clogging up\n"
 touch $logfile
-#foundDirs=$(sudo find ~/DO4_LinuxMonitoring_v2.0-0/src/testfolder -type d -perm -u=w 2>/dev/null -not \( -path "*/bin" -o -path "*/bin/*" -o -path "*/sbin" -o -path "*/sbin/*" \))
 foundDirs=$(sudo find / -type d -perm -u=w -not \( -path "*/bin" -o -path     "*/bin/*" -o -path "*/sbin" -o -path "*/sbin/*" \))
 check_1Gb_freespace
 for element in $foundDirs
