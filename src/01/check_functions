@@ -45,6 +45,7 @@
 	  then echo "Wrong absolute way!"
 	  exit 1
   fi
+  cd $abs_way; abs_way=$(pwd); cd -
   remove_slash_in_the_end
 }
 
